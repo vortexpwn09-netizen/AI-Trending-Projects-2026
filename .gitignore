@@ -34,6 +34,7 @@ Thumbs.db
 # !developer/.env.production   # HIDDEN now
 !developer/developer.json
 !developer/developer.prod.json
+!**/.env.development.example
 
 # Logs
 *.log

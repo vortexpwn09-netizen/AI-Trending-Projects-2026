@@ -1,0 +1,64 @@
+# Docker Compose - RepoAtlas AI Vault
+# One command: docker-compose up -d
+# Env files are hidden locally (attrib +h), not committed
+services:
+  frontend:
+    build: ./frontend
+    container_name: repoatlas-frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - developer/.env.development
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  backend:
+    build: ./backend
+    container_name: repoatlas-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - developer/.env.development
+    volumes:
+      - ./backend:/app
+      - ./tmp:/tmp
+      - ./vaults:/app/vaults
+    depends_on:
+      - qdrant
+      - postgres
+      - redis
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: repoatlas-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: repoatlas-postgres
+    environment:
+      POSTGRES_DB: repoatlas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: repoatlas-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  qdrant_data:
+  pg_data:

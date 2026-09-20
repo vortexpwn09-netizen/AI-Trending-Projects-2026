@@ -1,0 +1,12 @@
+﻿{
+  "project": "06-RepoAtlas-AI-Vault",
+  "developer_mode": false,
+  "sql_injection_protection": true,
+  "comment": "PROD MODE - SQL injection ON (Secure). All payloads blocked.",
+  "database": {
+    "use_parameterized_queries": true,
+    "orm_sanitization": true,
+    "raw_query_testing": false,
+    "status": "SECURE - Parameterized ORM active"
+  }
+}
