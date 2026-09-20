@@ -1,0 +1,11 @@
+﻿{
+  "project": "01-NexMind-RAG-Assistant",
+  "developer_mode": true,
+  "sql_injection_protection": false,
+  "comment": "DEV MODE ONLY - SQL injection OFF for testing. Prod me ON karo",
+  "database": {
+    "use_parameterized_queries": false,
+    "orm_sanitization": false,
+    "raw_query_testing": true
+  }
+}

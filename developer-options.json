@@ -1,0 +1,43 @@
+﻿{
+    "applied_to_projects":  [
+                                "01-NexMind-RAG-Assistant",
+                                "02-PixelForge-AI-Studio",
+                                "03-CodeSage-AI-Agent",
+                                "04-VoxClone-AI-Podcast",
+                                "05-AutoFlow-AI-Agents"
+                            ],
+    "security":  {
+                     "xss_protection":  true,
+                     "csrf_protection":  true,
+                     "warning":  "All queries use parameterized ORM - safe from injection",
+                     "sql_injection_protection":  true,
+                     "note":  "PRODUCTION MODE - SQL Injection Protection ON (Secure)"
+                 },
+    "environment":  "production",
+    "test_status":  "passed_prod_mode",
+    "developer_mode":  false,
+    "testing":  {
+                    "expected_behavior_prod_mode":  "All payloads BLOCKED - parameterized queries active",
+                    "sql_injection_test_payloads":  [
+                                                        "\u0027 OR \u00271\u0027=\u00271",
+                                                        "\u0027; DROP TABLE users; --",
+                                                        "\u0027 UNION SELECT * FROM users --",
+                                                        "1\u0027 AND 1=1 --",
+                                                        "admin\u0027--"
+                                                    ],
+                    "prod_test_result":  "PASSED - All injection payloads blocked",
+                    "expected_behavior_dev_mode":  "Queries will execute raw (vulnerable)"
+                },
+    "features":  {
+                     "verbose_errors":  false,
+                     "mock_data_enabled":  false,
+                     "debug_logging":  false,
+                     "bypass_auth":  false
+                 },
+    "last_tested":  "2026-09-20T23:27:52.1517576+05:30",
+    "toggle_instructions":  {
+                                "per_project_override":  "Each project has developer/.env.production with SQL_INJECTION_PROTECTION=true",
+                                "to_enable_protection":  "Set security.sql_injection_protection = true and restart backend",
+                                "env_variable":  "SQL_INJECTION_PROTECTION=true (prod)"
+                            }
+}

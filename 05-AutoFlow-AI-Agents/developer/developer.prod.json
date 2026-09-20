@@ -1,0 +1,12 @@
+﻿{
+    "comment":  "PROD MODE - SQL injection ON (Secure). All payloads blocked.",
+    "project":  "05-AutoFlow-AI-Agents",
+    "sql_injection_protection":  true,
+    "developer_mode":  false,
+    "database":  {
+                     "use_parameterized_queries":  true,
+                     "status":  "SECURE - Parameterized ORM active",
+                     "raw_query_testing":  false,
+                     "orm_sanitization":  true
+                 }
+}

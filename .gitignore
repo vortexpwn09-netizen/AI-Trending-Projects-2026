@@ -1,0 +1,36 @@
+# Env & Secrets
+.env
+.env.local
+.env.development.local
+*.key
+*.pem
+.env.production
+
+# Developer mode - keep .env.development for reference, ignore real secrets
+# But keep developer/.env.development as template (no real keys)
+developer/.env.local
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keep developer configs (they are templates without real secrets)
+!developer/.env.development
+!developer/.env.production
+!developer/developer.json
+!developer/developer.prod.json
+
+# Logs
+*.log
