@@ -1,0 +1,20 @@
+﻿services:
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+    volumes: ["./frontend:/app", "/app/node_modules"]
+    command: npm run dev
+    depends_on: [backend]
+  backend:
+    build: ./backend
+    ports: ["8000:8000"]
+    volumes: ["./backend:/app"]
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    env_file: developer/.env.development
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports: ["6333:6333"]
+  postgres:
+    image: postgres:15-alpine
+    environment: { POSTGRES_DB: nexmind, POSTGRES_USER: postgres, POSTGRES_PASSWORD: postgres }
+    ports: ["5432:5432"]

@@ -1,4 +1,4 @@
-# Docker Compose - RepoAtlas AI Vault
+﻿# Docker Compose - RepoAtlas AI Vault
 # One command: docker-compose up -d
 # Env files are hidden locally (attrib +h), not committed
 services:
@@ -6,7 +6,7 @@ services:
     build: ./frontend
     container_name: repoatlas-frontend
     ports:
-      - "3000:3000"
+      - "3005:3000"
     env_file:
       - developer/.env.development
     depends_on:
@@ -19,7 +19,7 @@ services:
     build: ./backend
     container_name: repoatlas-backend
     ports:
-      - "8000:8000"
+      - "8005:8000"
     env_file:
       - developer/.env.development
     volumes:

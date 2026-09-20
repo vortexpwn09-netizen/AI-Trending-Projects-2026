@@ -1,0 +1,3 @@
+﻿services:
+  frontend: { build: ./frontend, ports: ["3004:3000"], volumes: ["./frontend:/app","/app/node_modules"], command: npm run dev, depends_on: [backend] }
+  backend: { build: ./backend, ports: ["8004:8000"], volumes: ["./backend:/app"], command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload, env_file: developer/.env.development }
