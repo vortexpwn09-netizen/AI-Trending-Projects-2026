@@ -1,6 +1,6 @@
-﻿# llms-full.txt - AI Trending Projects 2026 - Full Concatenated
-Generated 2026-09-20 | 5 Projects | LLM Readable | Concatenated all PRD/TRD/architecture/SKILLS/SEO
- Source: C:\Users\Pc\AI-Trending-Projects-2026\ | Vault: C:\Users\Pc\Obsidian\Showcase\Projects\
+﻿# llms-full.txt - AI Trending Projects 2026 - Full Concatenated (6 Projects)
+Generated 2026-09-20 | 6 Projects (5 + 1 novel RepoAtlas) | LLM Readable | Concatenated all PRD/TRD/architecture/SKILLS/SEO
+ Source: C:\Users\Pc\AI-Trending-Projects-2026\ | Vault: C:\Users\Pc\Obsidian\Showcase\Projects\ | GitHub: https://github.com/vortexpwn09-netizen/AI-Trending-Projects-2026
 ---
 # AI Trending Projects 2026 - 5 Most Useful GitHub Projects
 
@@ -2398,6 +2398,843 @@ uvicorn backend.main:app --reload
 }
 
 --- END 05-AutoFlow-AI-Agents ---
+
+
+# ==================== 06-RepoAtlas-AI-Vault ====================
+
+
+## --- 06-RepoAtlas-AI-Vault/README.md ---
+
+# RepoAtlas AI - GitHub to Obsidian Vault Knowledge Graph
+
+Open-source AI tool jo kisi bhi GitHub repo ko 2 minute me Obsidian vault me convert karta hai. Codebase ka knowledge graph, docs, ER diagrams, API specs aur daily journal auto-generate hota hai.
+
+**GitHub Trending Potential:** 16k+ stars | **Category:** DevTools, Knowledge Graph, Obsidian, RAG
+**Stack:** Next.js 15, FastAPI, Tree-sitter, LangGraph, Qdrant, Postgres, Obsidian Vault Format, GitHub API, Docker
+
+### Problem Kya Solve Karta Hai
+Har developer ko nayi repo samajhne me 2-3 din lagte hain. README adhura, docs outdated. RepoAtlas 10,000 files ko padh kar tumhare liye searchable vault banata hai jisme har service, API aur DB schema ka MOC ready hai.
+
+### Key Features
+1. GitHub URL paste karo ya local folder select karo - 60 sec me clone + analyze
+2. Auto Obsidian Vault - 00 Home, 03 Projects, 05 Technology, 09 Knowledge structure me markdown + frontmatter + wikilinks
+3. Knowledge Graph - Canvas file + Interactive graph view (React Flow) me services, DB, APIs ke connections
+4. Ask Repo - RAG chat - puchho "auth kaise kaam karta hai?" to exact file + line ke sath answer
+5. ER Diagram + API Docs - Prisma/Drizzle schema se ER, FastAPI/Express routes se OpenAPI
+6. Daily Journal Sync - `git log` se roz ka Obsidian daily note - kya badla, kisne kya kiya
+
+### Quick Start (2 min)
+```bash
+git clone https://github.com/vortexpwn09-netizen/AI-Trending-Projects-2026.git
+cd 06-RepoAtlas-AI-Vault
+docker-compose up -d  # postgres + qdrant
+pip install -r backend/requirements.txt
+npm install --prefix frontend
+cp developer/.env.development.example developer/.env.development  # hidden locally
+# OPENAI_API_KEY aur GITHUB_TOKEN set karo
+npm run dev  # frontend:3000 backend:8000
+# Browser me http://localhost:3000 -> GitHub URL paste karo -> Generate Vault
+```
+
+### Docs
+- `PRD.md` - Product requirements
+- `TRD.md` - Technical requirements, DB schema, APIs
+- `architecture.md` - System architecture, Docker, frontend, Obsidian vault format
+- `SKILLS.md` - Skills, learning path, easy setup
+- `SEO.md` - GitHub + Google SEO
+
+### Example
+```bash
+Input: https://github.com/owner/my-saas
+Output:
+  vault/
+    00 Home/Index.md
+    03 Projects/MySaas/MOC.md
+    05 Technology/Stack.md  # Next.js, Postgres, etc. auto detected
+    09 Knowledge/API_Routes.md
+    graph.json  # Obsidian graph
+    canvas/Architecture.canvas
+```
+
+MIT License - For teams who live in Obsidian + GitHub.
+
+
+## --- 06-RepoAtlas-AI-Vault/PRD.md ---
+
+# PRD - RepoAtlas AI Vault
+
+## 1. Vision
+Har codebase ka Obsidian vault 2 minute me. Jaise GitHub repo ka Google Maps ho - har service, DB aur API ka connection dikhe, search karo aur puchho.
+
+## 2. Problem
+- Nayi team ko onboarding me 1 hafta lagta hai - docs bikhre hain
+- Code change hota hai, vault/docs manual update nahi hota
+- Existing tools (CodeSee, Sourcegraph) expensive, Obsidian support nahi
+- Freelancers ko client repo ka vault banana padta hai bar bar
+
+## 3. Target Users
+| Persona | Pain | Value |
+|---|---|---|
+| Solo Dev / Indie Hacker | 30 repos hain, kya kahan hai yaad nahi | Ek vault me sab repos searchable |
+| Tech Lead | New hire onboarding slow | Auto MOC + graph -> 1 day onboarding |
+| Agency (Pragya Limited type) | Har client ka repo alag, docs banana time waste | 2 min vault, client ko share karo |
+| Obsidian Power User | Manual vault banana boring | GitHub se auto vault |
+
+## 4. User Stories
+- US-01: As user, mai GitHub URL paste karu aur 60 sec me Obsidian vault zip download karu
+- US-02: As user, mai puchhu "payment flow kaise kaam karta hai" aur AI 3 files ke reference ke sath answer de
+- US-03: As user, mai graph view me dekh saku auth service kis DB table se connected hai
+- US-04: As user, local folder select karke bina GitHub ke vault bana saku (private code)
+- US-05: As user, daily `git pull` par vault ka daily note auto update ho
+- US-06: As user, vault ko Obsidian Showcase/Projects me sync kar saku
+
+## 5. Functional Requirements
+### MVP (3 weeks)
+- [ ] GitHub URL input + GitHub API clone (shallow) + local folder upload
+- [ ] Parser: Tree-sitter (JS/TS/Python/Go) -> file tree, functions, routes, DB models
+- [ ] Tech stack detector: package.json, requirements.txt, go.mod, Dockerfile parse
+- [ ] Obsidian vault generator: Mustache templates -> markdown with YAML frontmatter, wikilinks [[MOC]]
+- [ ] Structure: 00 Home, 03 Projects/{Repo}, 05 Technology/Stack.md, 09 Knowledge/API.md, 09 Knowledge/ER.md
+- [ ] Canvas: Architecture.canvas JSON (Obsidian Canvas format) - nodes for services
+- [ ] RAG: Chunk code (500 tokens) -> embed bge-small -> Qdrant per repo -> chat API
+- [ ] Frontend: Next.js - URL input, progress (SSE), graph preview (React Flow), download zip
+- [ ] Daily note: git log --since=1day -> LLM summary -> 12 Daily Notes/YYYY-MM-DD.md
+
+### V1.5
+- [ ] ER diagram PNG via Mermaid + API docs OpenAPI 3.1 JSON
+- [ ] Incremental sync: git webhook push -> re-index only changed files
+- [ ] Obsidian plugin: Vault open in Obsidian directly
+
+### V2.0
+- [ ] Team vault merge - 5 repos ka combined vault
+- [ ] Export to Notion, Confluence
+- [ ] Private mode: Ollama local LLM, Qdrant local, no data leaves device
+
+## 6. Non-Functional
+- 10k files repo < 90 sec analysis (parallel parsing)
+- Vault markdown valid Obsidian (frontmatter, wikilinks pass Obsidian linter)
+- Search latency < 1.5 sec (Qdrant HNSW)
+- Private code support - local folder, no GitHub token needed
+
+## 7. Success Metrics
+- GitHub stars 12k in 60 days (devtools + obsidian both viral)
+- 3k vaults generated first month
+- Activation: 55% users generate 2nd vault in 7 days
+- Obsidian community plugin installs 1k
+
+## 8. Competitive Analysis
+| Tool | Weak | RepoAtlas Edge |
+|---|---|---|
+| CodeSee | Paid $24/mo, no Obsidian | Free, Obsidian native |
+| Sourcegraph | Cody chat only, no vault | Vault + graph + canvas |
+| Gource | Visual only, no AI | AI MOC + chat |
+| Manual vault | 10 hr manual | 2 min auto |
+
+## 9. Monetization
+- Open source self-host free
+- Cloud Pro 19 dollar/mo - 100 vaults, team merge, daily sync, private repo support
+- Agency plan for Pragya type - white label vault
+
+## 10. Roadmap
+- Week 1: GitHub clone + Tree-sitter parser + vault templates
+- Week 2: Qdrant RAG + chat + React Flow graph
+- Week 3: Daily notes + ER/Mermaid + Docker + polish + launch
+
+
+## --- 06-RepoAtlas-AI-Vault/TRD.md ---
+
+# TRD - RepoAtlas AI Vault
+
+## 1. Tech Stack
+**Frontend:** Next.js 15 (App Router) + Tailwind + shadcn/ui + React Flow (graph) + Zustand
+**Backend:** FastAPI (Python 3.11) + LangGraph + Tree-sitter + GitPython + Qdrant
+**LLM:** GPT-4o (analysis + chat), GPT-4o-mini (daily notes), Ollama fallback (llama3.1:8b)
+**Embedding:** BGE-small-en (384 dim) local or text-embedding-3-small
+**Database:** Postgres (Neon/Supabase) - metadata + users + vaults; Qdrant - vectors per repo
+**Obsidian:** Vault format markdown + YAML frontmatter + [[wikilinks]] + Canvas JSON + graph.json
+**GitHub:** GitHub API (Octokit) + shallow clone (depth 1)
+**Storage:** Local vault zip + S3/R2 (optional cloud vault hosting)
+**Queue:** Celery + Redis (for large repo parsing)
+**Docker:** docker-compose.yml - frontend, backend, qdrant, postgres, redis
+**Auth:** Clerk (GitHub OAuth mirror)
+
+## 2. System Architecture Overview
+```
+[Next.js Frontend] --REST/SSE--> [FastAPI Backend] --> [GitHub API / Local Upload]
+                                          |
+                                    [Tree-sitter Parser] --> [LLM Analyzer] --> [Qdrant + Postgres]
+                                          |
+                                    [Vault Generator] --> [Zip + S3] --> [Download]
+                                          |
+                                    [RAG Chat] <-- Qdrant Retrieve
+```
+
+## 3. Core Modules
+
+### 3.1 Repo Ingestion
+- API: `POST /api/vault/create` {github_url, branch, local_upload?}
+- Steps:
+  1. Clone: `git clone --depth 1 --filter=blob:none {url}` to /tmp/repo_{id} (or unzip local)
+  2. Ignore: .git, node_modules, dist, .next, __pycache__, .venv
+  3. File walk: Collect files, filter whitelisted extensions .ts .js .py .go .java .md .json .sql
+  4. Persist meta to Postgres `vaults` table
+
+### 3.2 Parser (Tree-sitter)
+- For each file: Tree-sitter parse -> extract:
+  - Functions/classes, imports, exports
+  - Route definitions: `app.get|post`, `router`, FastAPI `@app.get`, Express
+  - DB models: Prisma schema, Drizzle, SQLAlchemy, Mongoose
+  - Config: package.json deps, Dockerfile, docker-compose
+- Output JSON per file: `{path, language, functions: [], routes: [], models: [], imports: []}`
+- Parallel: ThreadPoolExecutor 8 workers -> 10k files < 60 sec
+
+### 3.3 Tech Stack Detector
+- Rules: if `next.config.js` -> Next.js, if `prisma/schema.prisma` -> Prisma, if `requirements.txt` contains `fastapi` -> FastAPI
+- Output `stack.json`: `{frontend: [Next.js], backend: [FastAPI], db: [Postgres], infra: [Docker]}`
+
+### 3.4 LLM Analyzer (LangGraph)
+- Nodes: `summarize_file` -> `aggregate_module` -> `generate_moc`
+- Prompt per module (e.g., `auth` folder): "Summarize these 12 files in 200 words, list APIs, DB tables, and how auth works"
+- Generate vault sections sequentially with shared context
+
+### 3.5 Vault Generator
+- Templates: Jinja2/Mustache per Obsidian section
+- Structure:
+```
+vault_{repo}/
+  00 Home/Index.md  (frontmatter type: home)
+  03 Projects/{Repo}/MOC.md  (table of modules with [[links]])
+  05 Technology/Stack.md  (stack.json -> markdown + badges)
+  09 Knowledge/API_Routes.md  (OpenAPI table)
+  09 Knowledge/ER_Diagram.md  (Mermaid erDiagram)
+  09 Knowledge/Graph.md
+  canvas/Architecture.canvas  (Obsidian Canvas JSON: nodes + edges)
+  12 Daily Notes/2026-09-20.md  (git log summary)
+  .obsidian/graph.json
+  .obsidian/canvas.json
+```
+- Wikilinks: `[[05 Technology/Stack]]`, `[[09 Knowledge/API_Routes]]`
+- Frontmatter example:
+```yaml
+---
+type: project
+repo: owner/repo
+stack: [Next.js, FastAPI, Postgres]
+generated: 2026-09-20
+tags: [repoatlas, ai]
+---
+```
+
+### 3.6 RAG Chat
+- Chunk: Split parsed JSON + raw code by function (max 500 tokens, overlap 50)
+- Embed: BGE-small batch 64
+- Store: Qdrant collection `repo_{vault_id}` payload `{path, function, text}`
+- Query: embed question -> Qdrant top 5 -> build prompt -> stream via SSE
+- APIs: `POST /api/chat` {vault_id, question} -> stream
+
+### 3.7 Daily Journal Sync
+- Cron: On vault open, `git log --since=24h --stat` -> LLM prompt "Summarize changes for Obsidian daily note in Hindi+English, bullet points"
+- Append to `12 Daily Notes/YYYY-MM-DD.md`
+
+## 4. Database Schema (Postgres)
+```sql
+users (id, email, clerk_id)
+vaults (id, user_id, repo_url, repo_name, branch, status, stack jsonb, file_count, created_at)
+files (id, vault_id, path, language, functions jsonb, routes jsonb, models jsonb)
+embeddings (id, vault_id, file_id, chunk_index, vector_id, text)
+chats (id, vault_id, user_id, question, answer, sources jsonb)
+daily_notes (id, vault_id, date, content_md)
+```
+
+## 5. API Design
+- `POST /api/vault/create` {github_url} -> {vault_id, status: parsing}
+- `GET /api/vault/{id}/status` -> {progress: 0-100, current_file}
+- `GET /api/vault/{id}/download` -> zip stream (vault.zip)
+- `GET /api/vault/{id}/graph` -> {nodes, edges} for React Flow
+- `POST /api/chat` {vault_id, question} -> SSE stream {token, sources:[{path, line}]}
+- `POST /api/vault/{id}/daily` -> regenerate daily note
+- `GET /api/vaults` -> list user vaults
+
+## 6. Frontend (Next.js)
+- Pages: `/` (input), `/vault/[id]` (preview + graph + chat), `/dashboard` (my vaults)
+- Components: `RepoInput` (URL + branch + upload), `ProgressBar` (SSE), `GraphView` (React Flow), `VaultPreview` (markdown tree), `ChatPanel` (ask repo)
+- State: Zustand `useVaultStore`, TanStack Query for vaults
+- Preview: `react-markdown` + `mermaid` for ER, badge for stack
+
+## 7. Docker
+- `docker-compose.yml`:
+```yaml
+services:
+  frontend: build: ./frontend, ports: [3000:3000], depends_on: [backend]
+  backend: build: ./backend, ports: [8000:8000], volumes: [./tmp:/tmp], depends_on: [qdrant, postgres, redis]
+  qdrant: image: qdrant/qdrant, ports: [6333:6333]
+  postgres: image: postgres:15, ports: [5432:5432], env_file: .env
+  redis: image: redis:7, ports: [6379:6379]
+```
+- One command: `docker-compose up -d`
+- Env: `OPENAI_API_KEY, GITHUB_TOKEN, QDRANT_URL, DATABASE_URL, CLERK_SECRET` -> hidden via .env (not committed)
+
+## 8. Security
+- GitHub token optional - public repos need no token, private need PAT with repo:read
+- Shallow clone no history leak
+- Qdrant payload filtered by `vault_id` + `user_id` (multi-tenant)
+- Hide .env files via .gitignore + hidden attribute, never log code content > 7 days
+
+## 9. Performance
+- Parser parallel 8 threads -> 10k files 45 sec
+- LLM batch: 20 files per prompt -> cost 0.02 dollar per vault
+- Qdrant HNSW m=16
+- Chat latency < 2 sec first token
+
+## 10. Testing
+- Unit: parser for 5 languages, stack detector
+- Integration: clone -> parse -> vault zip -> unzip + Obsidian lint
+- E2E: Playwright - input GitHub URL -> download vault -> check Index.md frontmatter
+
+## 11. Risks
+- Large monorepo -> timeout -> chunk + queue Celery
+- LLM hallucination MOC -> add confidence + source refs
+- Obsidian format breaking -> validate with obsidian-linter
+
+## 12. No Emoji in Code
+- All code blocks avoid emoji. Use ASCII only.
+
+
+## --- 06-RepoAtlas-AI-Vault/architecture.md ---
+
+# Architecture - RepoAtlas AI Vault
+
+## 1. High-Level Diagram
+```
+                     +-------------------+
+                     | Next.js Frontend  |
+                     | 3000 (Vercel)     |
+                     | Input + Graph +   |
+                     | Chat + Preview    |
+                     +---------+---------+
+                               | REST + SSE
+                               v
+                     +-------------------+
+                     | FastAPI Backend   |
+                     | 8000 (Fly/Railway)|
+                     | LangGraph +       |
+                     | Tree-sitter       |
+                     +---+-------+-------+
+                         |       |
+             +-----------+       +-----------+
+             |                           |
+   +------------------+        +------------------+
+   | GitHub API /     |        | Qdrant Cloud     |
+   | Local Upload     |        | Vectors per repo |
+   | Shallow Clone    |        | HNSW             |
+   +------------------+        +------------------+
+             |                           |
+             +-----------+---------------+
+                         |
+                 +-------+-------+
+                 | Postgres (Neon)|
+                 | vaults, files |
+                 +-------+-------+
+                         |
+                 +-------+-------+
+                 | Redis Queue   |
+                 | Celery        |
+                 +-------+-------+
+                         |
+                 +-------+-------+
+                 | Vault Storage |
+                 | Zip + R2/S3   |
+                 +----------------+
+                         |
+                 +-------+-------+
+                 | Obsidian Vault|
+                 | (md + canvas) |
+                 +----------------+
+```
+
+## 2. Frontend Architecture
+- **App Router:** `/app/page.tsx` (input), `/app/vault/[id]/page.tsx` (detail), `/app/dashboard/page.tsx`
+- **Components:**
+  - `RepoInput.tsx` - GitHub URL field, branch select, file drop for local folder
+  - `ProgressSSE.tsx` - EventSource `/api/vault/{id}/status` -> progress bar
+  - `GraphView.tsx` - React Flow nodes=services, edges=imports/DB relations, minimap
+  - `VaultTree.tsx` - File tree of generated vault, click to preview markdown
+  - `ChatPanel.tsx` - Ask repo, streaming, citation list
+- **State:** Zustand store `{vaultId, progress, graph, chatMessages}`, TanStack Query for vault list
+- **Preview:** `react-markdown` + `shiki` code highlight + `mermaid` for ER diagrams
+- **Download:** `a[href=/api/vault/{id}/download]` -> vault.zip
+
+## 3. Backend Architecture
+```
+/backend
+  app/
+    main.py
+    routers/
+      vault.py  # create, status, download, graph
+      chat.py   # ask repo
+    services/
+      cloner.py      # git clone --depth 1
+      parser.py      # Tree-sitter per language
+      stack_detector.py
+      vault_generator.py  # Jinja templates -> md + canvas
+      rag.py         # chunk + embed + query
+      daily.py       # git log -> daily note
+    core/
+      config.py
+      qdrant_client.py
+      db.py (SQLAlchemy)
+    models/
+      schemas.py
+```
+
+**Flow Sequence (Create Vault):**
+1. Frontend POST /api/vault/create {github_url}
+2. Backend creates vault row status=cloning, enqueue Celery `build_vault(vault_id)`
+3. Worker clones to /tmp/repo_{id}, parses parallel, detects stack, LLM aggregate, generates vault to /tmp/vault_{id}
+4. Zips /tmp/vault_{id} -> /tmp/vault_{id}.zip, uploads to R2 if configured, updates vault status=ready
+5. Frontend polls SSE status -> shows graph + download button
+
+## 4. Obsidian Vault Format Details
+- **YAML Frontmatter:** Every md has `--- type, repo, stack, generated, tags ---`
+- **Wikilinks:** `[[05 Technology/Stack]]`, `[[09 Knowledge/API_Routes#auth]]`
+- **Canvas:** `canvas/Architecture.canvas` JSON per Obsidian spec:
+```json
+{
+  "nodes": [
+    {"id":"1","type":"text","text":"Frontend (Next.js)","x":0,"y":0,"width":250,"height":100},
+    {"id":"2","type":"text","text":"Backend (FastAPI)","x":300,"y":0,"width":250,"height":100}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"1","toNode":"2","label":"REST /api"}
+  ]
+}
+```
+- **Graph:** Vault root has `graph.json` for React Flow preview, maps to Obsidian graph
+- **Validation:** Run `obsidian-linter` style checks - frontmatter valid, wikilinks resolve
+
+## 5. Database + Vector
+- **Postgres:** Relational metadata, vaults/files/chats. Index on `vaults.user_id`, `files.vault_id`
+- **Qdrant:** One collection per vault `repo_{vault_id}` or single collection with filter `vault_id`. Payload `{path, function, text, language}`. HNSW for fast search.
+
+## 6. Docker Compose
+```yaml
+services:
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+    env_file: developer/.env.development
+    depends_on: [backend]
+  backend:
+    build: ./backend
+    ports: ["8000:8000"]
+    volumes: ["./tmp:/tmp", "./vaults:/app/vaults"]
+    env_file: developer/.env.development
+    depends_on: [qdrant, postgres, redis]
+  qdrant:
+    image: qdrant/qdrant
+    ports: ["6333:6333"]
+    volumes: ["qdrant_data:/qdrant/storage"]
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: repoatlas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports: ["5432:5432"]
+    volumes: ["pg_data:/var/lib/postgresql/data"]
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+volumes:
+  qdrant_data:
+  pg_data:
+```
+- **Env hidden:** `developer/.env.development` is hidden (attrib +h) and gitignored, not committed. Example content kept as `.env.example`.
+
+## 7. Security
+- Public repos no token, private repos require `GITHUB_TOKEN` with repo scope, stored encrypted, never logged
+- Vault access filtered by `user_id`
+- Hidden .env files not pushed, check with `git ls-files | grep env` should be empty
+
+## 8. Deployment
+- **Local:** `docker-compose up -d` (needs 8GB RAM, 2GB for Qdrant)
+- **Cloud:** Vercel frontend, Fly.io backend+workers, Qdrant Cloud, Neon Postgres, R2 for vault zips
+- **CI:** GitHub Actions - lint, test parser, build docker
+
+## 9. Scaling
+- Celery workers scale horizontally (Fly 3 workers)
+- Qdrant sharding per vault
+- Incremental sync: webhook on push -> only changed files re-parse
+
+## 10. Monitoring
+- Prometheus backend latency, Qdrant ops
+- Sentry errors, LangSmith LLM traces
+
+## 11. Future
+- Obsidian plugin direct install
+- Combined multi-repo vault
+- Export to Notion/Confluence
+
+
+## --- 06-RepoAtlas-AI-Vault/SKILLS.md ---
+
+# SKILLS.md - RepoAtlas AI Vault
+
+## 1. Required Skills
+
+| Skill | Level | Where Used | Easy Alternative |
+|---|---|---|---|
+| Next.js 15 + React Flow | Beginner | Frontend graph + chat | shadcn templates copy |
+| FastAPI + Python | Beginner | Backend API | Boilerplate provided |
+| Tree-sitter | Intermediate | Code parsing | Docs 30 min, copy parser |
+| LangGraph | Intermediate | LLM analyzer | Provided graph template |
+| Qdrant / PGVector | Beginner | Vector search | Qdrant Cloud free, no setup |
+| Postgres + Prisma | Beginner | Metadata | Neon free, schema ready |
+| Docker / Compose | Beginner | Run all services | `docker-compose up` 1 command |
+| Obsidian Vault Format | Beginner | Markdown + frontmatter + canvas | Template vault provided |
+| GitHub API | Beginner | Clone + webhook | Octokit wrapper ready |
+
+No need for deep ML theory. Models are pre-trained.
+
+## 2. OpenCode Skills for This Project
+```json
+{
+  "skills": [
+    "nextjs-shadcn-skill - UI scaffold",
+    "fastapi-crud-skill - API routes",
+    "tree-sitter-skill - parse code",
+    "qdrant-skill - vector store",
+    "obsidian-vault-skill - generate vault md + canvas",
+    "docker-deploy-skill - compose up"
+  ]
+}
+```
+Add to `.opencode/skills/` to make project easy for contributors.
+
+## 3. Easy Setup (10 min)
+```bash
+cd 06-RepoAtlas-AI-Vault
+docker-compose up -d  # postgres + qdrant + redis
+pip install -r backend/requirements.txt
+npm install --prefix frontend
+cp developer/.env.development.example developer/.env.development  # hidden locally
+# Set in .env.development (hidden file):
+# OPENAI_API_KEY=sk-xxx
+# GITHUB_TOKEN=ghp_xxx (only for private repos)
+# DATABASE_URL=postgresql://postgres:postgres@localhost:5432/repoatlas
+# QDRANT_URL=http://localhost:6333
+npm run dev  # frontend
+uvicorn backend.app.main:app --reload --port 8000  # backend
+# Open http://localhost:3000 -> paste https://github.com/owner/repo -> Generate
+```
+
+No GPU needed. Embeddings via API, parsing is CPU.
+
+## 4. Learning Path (3 Days)
+- Day 1: Tree-sitter parse 2 hr + Next.js graph view
+- Day 2: Vault generator templates + frontmatter + wikilinks
+- Day 3: Qdrant RAG chat + Docker compose + launch
+
+## 5. How To Make Relevant & Easy
+- README has GitHub repo -> Obsidian vault 30 sec GIF demo (stars 3x)
+- Topics include obsidian + github + rag
+- Provide `.env.example` not real .env, hidden real file
+- SKILLS file helps new devs in 10 min
+
+## 6. Common Fixes
+- `QDRANT_URL not found` -> Check hidden `developer/.env.development`
+- `Tree-sitter language not found` -> `pip install tree-sitter-languages`
+- `Obsidian canvas not opening` -> Validate JSON with Obsidian Canvas spec
+- `Clone fails private repo` -> Add GITHUB_TOKEN with repo scope
+- `docker-compose port 5432 busy` -> Change to 5433 in compose
+
+## 7. Reuse From Previous 5 Projects
+- Auth (Clerk), DB (Neon), Qdrant, Docker, Next.js all reuse from NexMind etc.
+- 70 percent code reusable
+
+## 8. Obsidian + GitHub Integration Tips
+- Generated vault goes to `Showcase/Projects` style - same as your existing vault
+- Use wikilinks `[[05 Technology/Stack]]` so graph view connects automatically
+- GitHub webhook for daily sync: set `WEBHOOK_SECRET` hidden
+
+
+## --- 06-RepoAtlas-AI-Vault/SEO.md ---
+
+# SEO.md - RepoAtlas AI Vault
+
+## 1. GitHub SEO
+**Repo Name:** `repoatlas-ai-vault` or `repoatlas-github-to-obsidian`
+**Description (160 chars):**
+> Open-source GitHub to Obsidian Vault - AI converts any repo to knowledge vault with graph, docs, ER + chat. Next.js + Tree-sitter + Qdrant. 2 min.
+
+**Topics (20):**
+`obsidian`, `github`, `knowledge-graph`, `rag`, `tree-sitter`, `nextjs`, `fastapi`, `qdrant`, `langgraph`, `devtools`, `documentation`, `vault`, `markdown`, `ai`, `code-analysis`, `obsidian-vault`, `github-api`, `react-flow`, `postgres`, `docker`
+
+**README Tricks:**
+- H1 has `GitHub to Obsidian`, H2 has `Tree-sitter`, `Qdrant`, `RAG`
+- GIF demo on top: URL paste -> graph + vault download (stars 3x)
+- Badges: `Deploy with Vercel`, `Docker`, `Obsidian`, `MIT`
+- Pin repo, PR to awesome lists: `awesome-obsidian`, `awesome-rag`, `awesome-devtools`
+
+## 2. Google SEO
+**Title (60 chars):**
+> RepoAtlas - GitHub to Obsidian Vault AI (Free, Open Source)
+
+**Meta (155 chars):**
+> Paste GitHub URL, get Obsidian vault with knowledge graph, docs, ER diagram + chat. Tree-sitter + Qdrant. Free, self-host in 2 min.
+
+**Keywords:**
+- Primary: `github to obsidian`, `obsidian vault generator`, `codebase knowledge graph`
+- Secondary: `ai codebase docs`, `tree-sitter rag`, `github vault converter`
+- Long-tail: `how to convert github repo to obsidian vault`, `ai code documentation generator`
+
+**Content:**
+- `/blog/convert-github-to-obsidian-ai` tutorial 2000 words
+- `/blog/tree-sitter-qdrant-rag-tutorial`
+- Vault preview pages `/vault/{id}` indexed, each vault is SEO page
+- FAQ schema: What is Obsidian vault? How does RAG work?
+
+## 3. Obsidian Community SEO (Unique)
+- Publish as Obsidian plugin + submit to `obsidian.md/plugins` -> huge traffic
+- Post on Obsidian Forum, Reddit r/ObsidianMD, Discord
+- YouTube: "GitHub to Obsidian in 2 min - RepoAtlas"
+
+## 4. Product Hunt
+**Tagline:** "GitHub repo to Obsidian vault in 2 min"
+**Topics:** AI, Productivity, Developer Tools, Obsidian
+**Story:** Founder shows his 30 repos vault graph
+
+## 5. Social
+**X Hook:**
+> I built GitHub to Obsidian vault AI
+> Paste any repo -> get knowledge graph, docs, chat
+> - Tree-sitter parsing
+> - Qdrant RAG
+> - Obsidian Canvas
+> Open source, 2 min Docker
+
+**Reddit:** r/github, r/ObsidianMD, r/programming, r/nextjs
+**LinkedIn:** Agency founder shows client vault onboarding 1 day
+**Hacker News:** Show HN - GitHub to Obsidian Vault AI (Tree-sitter + Qdrant)
+
+## 6. Backlinks
+- PR to `awesome-obsidian`, `awesome-github`, `awesome-ai-devtools`
+- Submit to futuretools, theresanaiforthat
+- Guest post on Obsidian blog, LangChain blog
+
+## 7. Vault SEO
+- Each generated vault has `llms.txt` inside -> indexed by LLM crawlers
+- Canvas JSON is shareable, viral on X
+
+
+## --- 06-RepoAtlas-AI-Vault/frontend-spec.md ---
+
+# Frontend Spec - RepoAtlas AI Vault
+
+## Stack
+Next.js 15 (App Router) + TypeScript + Tailwind + shadcn/ui + React Flow + Zustand + TanStack Query
+
+## Pages
+- `/` - Repo input: GitHub URL field, branch input, local folder drop, Generate button, progress SSE
+- `/vault/[id]` - Vault detail: Tabs for Preview, Graph, Chat, Download
+- `/dashboard` - My vaults list: cards with repo name, status, stack badges, graph thumbnail
+- `/vault/[id]/chat` - Full screen Ask Repo
+
+## Components
+- `RepoInput.tsx` - Controlled input, validates GitHub URL regex, file drop handler for local folder
+- `ProgressSSE.tsx` - EventSource to GET /api/vault/{id}/status, shows progress 0-100 and current file
+- `VaultTree.tsx` - Recursive tree of vault markdown files, click to render markdown via react-markdown
+- `GraphView.tsx` - React Flow: nodes from /api/vault/{id}/graph, edges for imports and DB relations, minimap and controls
+- `ChatPanel.tsx` - Message list, input, streaming via fetch SSE, citation chips with file path
+- `StackBadges.tsx` - Renders stack.json as badges (Next.js, FastAPI, Postgres)
+- `DownloadButton.tsx` - Link to /api/vault/{id}/download, shows vault.zip size
+
+## State
+- Zustand `useVaultStore` - {vaultId, progress, graph, messages, isGenerating}
+- TanStack Query `useQuery(['vaults'])` for dashboard
+
+## Styling
+- shadcn: Button, Card, Input, Badge, Progress, Dialog
+- Tailwind: layout grid, responsive
+- No emoji in code, use text labels
+
+## API Calls
+- POST /api/vault/create {github_url} -> {vault_id}
+- GET /api/vault/{id}/status (SSE)
+- GET /api/vault/{id}/graph
+- POST /api/chat {vault_id, question} (SSE stream)
+- GET /api/vault/{id}/download (blob)
+
+## Build
+- `npm run dev` - port 3000
+- `npm run build` - production
+- Env hidden via developer/.env.development, not committed
+
+## Testing
+- Playwright: input URL -> generate -> check graph nodes > 0 -> chat -> download
+
+
+## --- 06-RepoAtlas-AI-Vault/database-schema.sql ---
+
+-- Database Schema - RepoAtlas AI Vault
+-- Postgres (Neon/Supabase) - hidden env via .env.development
+-- Run: psql $DATABASE_URL -f database-schema.sql
+
+CREATE TABLE users (
+  id TEXT PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  clerk_id TEXT UNIQUE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE vaults (
+  id TEXT PRIMARY KEY,
+  user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
+  repo_url TEXT NOT NULL,
+  repo_name TEXT NOT NULL,
+  branch TEXT DEFAULT 'main',
+  status TEXT DEFAULT 'pending', -- pending, cloning, parsing, generating, ready, failed
+  stack JSONB, -- {frontend: [], backend: [], db: [], infra: []}
+  file_count INT DEFAULT 0,
+  vault_path TEXT, -- /tmp/vault_{id}.zip
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_vaults_user ON vaults(user_id);
+CREATE INDEX idx_vaults_status ON vaults(status);
+
+CREATE TABLE files (
+  id TEXT PRIMARY KEY,
+  vault_id TEXT REFERENCES vaults(id) ON DELETE CASCADE,
+  path TEXT NOT NULL,
+  language TEXT,
+  functions JSONB, -- [{name, line, type}]
+  routes JSONB,    -- [{method, path, line}]
+  models JSONB,    -- [{table, fields}]
+  imports TEXT[],
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_files_vault ON files(vault_id);
+CREATE INDEX idx_files_language ON files(language);
+
+CREATE TABLE embeddings (
+  id TEXT PRIMARY KEY,
+  vault_id TEXT REFERENCES vaults(id) ON DELETE CASCADE,
+  file_id TEXT REFERENCES files(id) ON DELETE CASCADE,
+  chunk_index INT,
+  vector_id TEXT, -- Qdrant point id
+  text TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_embeddings_vault ON embeddings(vault_id);
+
+CREATE TABLE chats (
+  id TEXT PRIMARY KEY,
+  vault_id TEXT REFERENCES vaults(id) ON DELETE CASCADE,
+  user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
+  question TEXT NOT NULL,
+  answer TEXT,
+  sources JSONB, -- [{path, line, score}]
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_chats_vault ON chats(vault_id);
+
+CREATE TABLE daily_notes (
+  id TEXT PRIMARY KEY,
+  vault_id TEXT REFERENCES vaults(id) ON DELETE CASCADE,
+  date DATE NOT NULL,
+  content_md TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(vault_id, date)
+);
+
+-- Note: Vectors stored in Qdrant collection repo_{vault_id}, not Postgres
+-- Use parameterized queries only - SQL injection protection ON in prod
+
+
+## --- 06-RepoAtlas-AI-Vault/docker-compose.yml ---
+
+# Docker Compose - RepoAtlas AI Vault
+# One command: docker-compose up -d
+# Env files are hidden locally (attrib +h), not committed
+services:
+  frontend:
+    build: ./frontend
+    container_name: repoatlas-frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - developer/.env.development
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  backend:
+    build: ./backend
+    container_name: repoatlas-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - developer/.env.development
+    volumes:
+      - ./backend:/app
+      - ./tmp:/tmp
+      - ./vaults:/app/vaults
+    depends_on:
+      - qdrant
+      - postgres
+      - redis
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: repoatlas-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: repoatlas-postgres
+    environment:
+      POSTGRES_DB: repoatlas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: repoatlas-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  qdrant_data:
+  pg_data:
+
+
+## --- 06-RepoAtlas-AI-Vault/developer/developer.json ---
+
+{
+  "project": "06-RepoAtlas-AI-Vault",
+  "developer_mode": true,
+  "sql_injection_protection": false,
+  "comment": "DEV MODE ONLY - SQL injection OFF for testing. Prod me ON karo",
+  "database": {
+    "use_parameterized_queries": false,
+    "orm_sanitization": false,
+    "raw_query_testing": true
+  }
+}
+
+--- END 06-RepoAtlas-AI-Vault ---
 
 
 # === developer-options.json (global) ===

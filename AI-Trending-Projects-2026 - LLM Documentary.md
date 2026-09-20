@@ -5,7 +5,7 @@ status: complete
 created: 2026-09-20
 updated: 2026-09-20
 vault: Showcase/Projects
-projects_count: 5
+projects_count: 6
 tags:
   - llm
   - ai
@@ -26,19 +26,19 @@ related:
 
 # AI Trending Projects 2026 - LLM Readable Documentary
 
-> Showcase vault ke `Projects` folder me 5 trending AI projects ka LLM-readable condensed docs. Har project ka summary AI models ke liye optimized hai - RAG, fine-tune, ya code generation ke liye use kar sakte ho.
+> Showcase vault ke `Projects` folder me 6 trending AI projects (5 original + 1 novel RepoAtlas) ka LLM-readable condensed docs. Har project ka summary AI models ke liye optimized hai - RAG, fine-tune, ya code generation ke liye use kar sakte ho.
 
 **Local Source:** `C:\Users\Pc\AI-Trending-Projects-2026\`  
 **Showcase Vault:** `C:\Users\Pc\Obsidian\Showcase\Projects\`  
-**GitHub:** `https://github.com/vortexpwn09-netizen/AI-Trending-Projects-2026` ✅ LIVE - pushed 2026-09-20 18:06 UTC (public, 3 commits)  
+**GitHub:** `https://github.com/vortexpwn09-netizen/AI-Trending-Projects-2026` ✅ LIVE - pushed 2026-09-20 18:30 UTC (public, 6 commits, 6 projects + hidden .env)  
 **Test Status:** DEV mode SQL injection OFF tested + passed, PROD ON verified (`developer-options.json` test_status=passed_prod_mode)  
-**Git Commit:** `b293c6c` on `main` (f3daaf1 -> b293c6c LLM docs), pushed to origin/main
+**Git Commit:** `ad43e1b` on `main` (6th RepoAtlas added), pushed to origin/main
 
 ---
 
 ## 📑 Index for LLMs
 
-This document aggregates all 5 projects into one LLM-readable file. Structure:
+This document aggregates all 6 projects into one LLM-readable file. Structure:
 
 ```yaml
 projects:
@@ -57,6 +57,11 @@ projects:
   - id: 05-AutoFlow
     type: Automation Agents
     stack: Next.js, React Flow, LangGraph, Inngest, Tavily
+  - id: 06-RepoAtlas
+    type: GitHub to Obsidian Vault
+    stack: Next.js, FastAPI, Tree-sitter, Qdrant, Postgres, Obsidian Canvas, Docker, React Flow
+    novel: true
+    covers: [Obsidian, GitHub, Frontend, Database, Docker]
 ```
 
 Use per-project `TRD.md` for code gen, `PRD.md` for product, `SEO.md` for growth.
@@ -230,6 +235,44 @@ Use per-project `TRD.md` for code gen, `PRD.md` for product, `SEO.md` for growth
 
 ---
 
+## 6. RepoAtlas AI - GitHub to Obsidian Vault Knowledge Graph
+
+**Folder:** `06-RepoAtlas-AI-Vault/`  
+**One-liner:** GitHub repo -> Obsidian vault in 2 min with knowledge graph, docs, ER, chat  
+**GitHub Potential:** 16k stars (novel - no good open-source GitHub to Obsidian exists)  
+**Stack:** Next.js 15 + React Flow, FastAPI + Tree-sitter + LangGraph, Qdrant, Postgres, Obsidian Vault Format (markdown + frontmatter + [[wikilinks]] + Canvas JSON), GitHub API, Docker
+
+### PRD Summary
+- **Vision:** Har repo ka Obsidian Google Maps - har service/DB/API ka connection dikhe
+- **Users:** Indie hacker (30 repos), Tech lead (onboarding 1 day), Agency (client vault 2 min), Obsidian power user
+- **Stories:** GitHub URL paste -> 60 sec vault zip, Ask Repo with citations, graph view auth->DB, local folder private, daily git log -> daily note, vault sync to Showcase/Projects
+- **MVP:** GitHub clone shallow + local upload, Tree-sitter parser (TS/JS/Py/Go), stack detector (package.json/requirements), vault generator (00 Home, 03 Projects, 05 Technology, 09 Knowledge, canvas/Architecture.canvas), Qdrant RAG per repo, Next.js graph preview, daily journal
+- **Metrics:** 12k stars 60d, 3k vaults month1
+
+### TRD Summary
+- **Stack:** Next.js 15 + FastAPI + LangGraph + Tree-sitter + BGE-small + Postgres (vaults/files/chats) + Qdrant (vectors) + Obsidian Canvas + GitHub API + S3/R2 + Celery/Redis + Docker
+- **Ingest:** POST /api/vault/create {github_url} -> clone --depth1 -> walk files (filter node_modules) -> Tree-sitter parallel 8 workers (10k files 60 sec) -> stack detector -> LLM aggregate -> vault templates
+- **Vault:** Jinja templates -> vault/{repo}/00 Home/Index.md (frontmatter type: project), 03 Projects/MOC.md (wikilinks), 05 Technology/Stack.md, 09 Knowledge/API_Routes.md (OpenAPI table), 09 Knowledge/ER_Diagram.md (Mermaid), canvas/Architecture.canvas (Obsidian Canvas JSON nodes+edges), 12 Daily Notes/YYYY-MM-DD.md (git log summary)
+- **RAG:** Chunk by function 500 tokens -> embed BGE -> Qdrant collection repo_{vault_id} payload {path, function, text} -> POST /api/chat stream SSE
+- **DB:** users, vaults (stack jsonb), files (functions/routes/models), embeddings, chats, daily_notes
+- **APIs:** POST /api/vault/create, GET /api/vault/{id}/status (SSE), GET /api/vault/{id}/download (zip), GET /api/vault/{id}/graph, POST /api/chat (SSE), POST /api/vault/{id}/daily
+- **Frontend:** Next.js App Router: / (input), /vault/[id] (preview+graph+chat), /dashboard; Components RepoInput, ProgressSSE, GraphView (React Flow), VaultTree, ChatPanel; Zustand + TanStack Query
+- **Docker:** docker-compose.yml frontend(3000) backend(8000) qdrant(6333) postgres(5432) redis(6379) - one command up -d, env hidden via developer/.env.development (attrib +h, gitignored, example committed)
+- **Security:** GitHub PAT optional (public no token), shallow clone, Qdrant filter by vault_id+user_id, .env hidden, SQL injection ON in prod (parameterized)
+
+### Architecture Summary
+- Frontend 3000 -> FastAPI 8000 -> GitHub API (clone) -> Tree-sitter parser -> LLM analyzer -> Qdrant + Postgres -> Vault generator -> Zip -> R2 -> Download, plus RAG chat via Qdrant
+- Vault format validated with obsidian-linter, wikilinks [[05 Technology/Stack]]
+- Canvas JSON spec per Obsidian docs, graph.json for React Flow
+
+### Skills Easy Path
+- Tree-sitter 30 min + Next.js graph, vault templates 2 hr, Qdrant RAG + Docker; Reuse 70 percent from previous 5 projects; opencode skills: obsidian-vault-skill + tree-sitter-skill
+
+### SEO Summary
+- Repo: repoatlas-ai-vault, topics obsidian/github/knowledge-graph/rag/tree-sitter/nextjs/qdrant/devtools; Obsidian plugin + r/ObsidianMD viral; GIF URL->graph
+
+---
+
 ## 🧪 Developer Mode & Security (SQL Injection)
 
 **Root:** `developer-options.json`
@@ -244,9 +287,9 @@ Use per-project `TRD.md` for code gen, `PRD.md` for product, `SEO.md` for growth
 
 ## 🔗 Vault Links & References
 
-- **Files:** See `llms.txt` (index) and `llms-full.txt` (concatenated full content)
+- **Files:** See `llms.txt` (index) and `llms-full.txt` (136KB 6 projects) 
 - **Showcase Index:** `Showcase/Index.md`
-- **Projects MOC:** `03 Projects/Projects MOC.md` - Master project directory (update with these 5)
+- **Projects MOC:** `03 Projects/Projects MOC.md` - Master project directory (update with these 6)
 - **GitHub Aliases:** If you use `Dataview`, query `TABLE title, tags FROM #llm`
 
 ```dataview
@@ -267,12 +310,12 @@ TABLE title, status, projects_count FROM "Showcase/Projects" WHERE type = "docum
 
 ## 📦 Obsidian Paths
 
-- **Showcase Vault Projects:** `C:\Users\Pc\Obsidian\Showcase\Projects\` (52 files, 5 folders)
+- **Showcase Vault Projects:** `C:\Users\Pc\Obsidian\Showcase\Projects\` (66 files, 6 folders - 06 RepoAtlas hidden .env)
 - **Main Vault Projects:** `C:\Users\Pc\Obsidian\Projects\AI-Trending-Projects-2026\` (mirror)
-- **Source:** `C:\Users\Pc\AI-Trending-Projects-2026\`
-- **LLM Docs:** `llms.txt`, `llms-full.txt`, `AI-Trending-Projects-2026 - LLM Documentary.md` (this file)
+- **Source:** `C:\Users\Pc\AI-Trending-Projects-2026\` (6 projects, hidden .env via attrib +h, .env.example visible)
+- **LLM Docs:** `llms.txt` (3895 bytes), `llms-full.txt` (136KB), `AI-Trending-Projects-2026 - LLM Documentary.md` (this file)
 
 > Tip: Add this documentary to `Canvas` or `Graph View` to connect with `Showcase/Chiku AI OS`, `AutoGPT`, `LangChain`, etc.
 
 ---
-*Generated 2026-09-20 - All 5 projects tested, vault synced, LLM-ready*
+*Generated 2026-09-20 - All 6 projects tested (5 + 1 novel RepoAtlas), vault synced, GitHub LIVE ad43e1b, .env hidden, no emoji in code, LLM-ready*

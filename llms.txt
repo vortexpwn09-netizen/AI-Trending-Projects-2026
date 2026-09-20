@@ -1,6 +1,6 @@
 # llms.txt - AI Trending Projects 2026
 
-> 5 Viral & Most Useful GitHub AI Projects - LLM Readable Index
+> 6 Viral & Most Useful GitHub AI Projects - LLM Readable Index (5 original + 1 novel RepoAtlas)
 
 For AI models, assistants, and developers wanting to understand, reuse, or extend these projects.
 
@@ -11,6 +11,7 @@ For AI models, assistants, and developers wanting to understand, reuse, or exten
 - [03 CodeSage AI Agent](./03-CodeSage-AI-Agent/README.md): AI Code Review & Auto-Fix Agent - PR reviews in 30s, security scan, auto-fix. Stack: Next.js, FastAPI, GitHub App, LangGraph, GPT-4o, Tree-sitter. Docs: PRD, TRD, architecture, SKILLS, SEO. Location: `03-CodeSage-AI-Agent/`
 - [04 VoxClone AI Podcast](./04-VoxClone-AI-Podcast/README.md): Voice Cloning & Podcast Studio - 30s voice clone, TTS 29 langs, dubbing. Stack: Next.js, FastAPI, Coqui XTTS-v2, Whisper, RVC, FFmpeg. Docs: PRD, TRD, architecture, SKILLS, SEO. Location: `04-VoxClone-AI-Podcast/`
 - [05 AutoFlow AI Agents](./05-AutoFlow-AI-Agents/README.md): Autonomous Multi-Agent Workflow Automation - Chat to workflow, Zapier + AutoGPT killer. Stack: Next.js, React Flow, LangGraph, CrewAI, Inngest, Tavily. Docs: PRD, TRD, architecture, SKILLS, SEO. Location: `05-AutoFlow-AI-Agents/`
+- [06 RepoAtlas AI Vault](./06-RepoAtlas-AI-Vault/README.md): GitHub to Obsidian Vault Knowledge Graph - Converts any repo to Obsidian vault with graph, docs, ER, chat. Stack: Next.js, FastAPI, Tree-sitter, Qdrant, Postgres, Obsidian Canvas, Docker, React Flow. Docs: PRD, TRD, architecture, SKILLS, SEO + frontend-spec, database-schema, docker-compose. Location: `06-RepoAtlas-AI-Vault/`
 
 ## Structure
 
@@ -21,7 +22,8 @@ Every project folder contains:
 - `architecture.md` - System diagrams, flows, scaling
 - `SKILLS.md` - Required skills, learning path, opencode skills, easy setup
 - `SEO.md` - GitHub + Google + Product Hunt SEO
-- `developer/` - `developer.json` (SQL injection OFF in dev), `.env.development`, `.env.production`, `developer.prod.json`
+- `developer/` - `developer.json` (SQL injection OFF in dev), `.env.development` (hidden), `.env.production` (hidden), `developer.prod.json`
+- 06 also: `docker-compose.yml`, `database-schema.sql`, `frontend-spec.md`, `developer/.env.development.example` (visible template)
 
 Root: `README.md` (master overview), `developer-options.json` (global dev/prod toggle), `test_all_projects.ps1` (validation)
 
@@ -43,7 +45,7 @@ See `AI-Trending-Projects-2026 - LLM Documentary.md` for Obsidian vault friendly
 - Local: `C:\Users\Pc\AI-Trending-Projects-2026\`
 - Obsidian Showcase: `C:\Users\Pc\Obsidian\Showcase\Projects\`
 - Obsidian Projects: `C:\Users\Pc\Obsidian\Projects\AI-Trending-Projects-2026\`
-- GitHub (pending push): `https://github.com/vortexpwn09-netizen/AI-Trending-Projects-2026` (run PUSH_TO_GITHUB.ps1 after gh auth login)
+- GitHub LIVE: `https://github.com/vortexpwn09-netizen/AI-Trending-Projects-2026` (pushed, public, 6 projects + hidden .env)
 
 ## Token Hint
 
