@@ -1,0 +1,50 @@
+# llms.txt - AI Trending Projects 2026
+
+> 5 Viral & Most Useful GitHub AI Projects - LLM Readable Index
+
+For AI models, assistants, and developers wanting to understand, reuse, or extend these projects.
+
+## Projects Index
+
+- [01 NexMind RAG Assistant](./01-NexMind-RAG-Assistant/README.md): Personal RAG Knowledge Assistant - Chat with PDFs, YouTube, Docs. Stack: Next.js 15, FastAPI, LangChain, Qdrant, OpenAI/Gemini/Ollama. Docs: PRD, TRD, architecture, SKILLS, SEO. Location: `01-NexMind-RAG-Assistant/`
+- [02 PixelForge AI Studio](./02-PixelForge-AI-Studio/README.md): Generative Image & Video Studio - Text-to-Image (SDXL/Flux), Inpainting, Video, Upscale. Stack: Next.js, Replicate, Fal.ai, Cloudflare R2. Docs: PRD, TRD, architecture, SKILLS, SEO. Location: `02-PixelForge-AI-Studio/`
+- [03 CodeSage AI Agent](./03-CodeSage-AI-Agent/README.md): AI Code Review & Auto-Fix Agent - PR reviews in 30s, security scan, auto-fix. Stack: Next.js, FastAPI, GitHub App, LangGraph, GPT-4o, Tree-sitter. Docs: PRD, TRD, architecture, SKILLS, SEO. Location: `03-CodeSage-AI-Agent/`
+- [04 VoxClone AI Podcast](./04-VoxClone-AI-Podcast/README.md): Voice Cloning & Podcast Studio - 30s voice clone, TTS 29 langs, dubbing. Stack: Next.js, FastAPI, Coqui XTTS-v2, Whisper, RVC, FFmpeg. Docs: PRD, TRD, architecture, SKILLS, SEO. Location: `04-VoxClone-AI-Podcast/`
+- [05 AutoFlow AI Agents](./05-AutoFlow-AI-Agents/README.md): Autonomous Multi-Agent Workflow Automation - Chat to workflow, Zapier + AutoGPT killer. Stack: Next.js, React Flow, LangGraph, CrewAI, Inngest, Tavily. Docs: PRD, TRD, architecture, SKILLS, SEO. Location: `05-AutoFlow-AI-Agents/`
+
+## Structure
+
+Every project folder contains:
+- `README.md` - Pitch + quick start
+- `PRD.md` - Product Requirements
+- `TRD.md` - Technical Requirements, APIs, DB schema
+- `architecture.md` - System diagrams, flows, scaling
+- `SKILLS.md` - Required skills, learning path, opencode skills, easy setup
+- `SEO.md` - GitHub + Google + Product Hunt SEO
+- `developer/` - `developer.json` (SQL injection OFF in dev), `.env.development`, `.env.production`, `developer.prod.json`
+
+Root: `README.md` (master overview), `developer-options.json` (global dev/prod toggle), `test_all_projects.ps1` (validation)
+
+## Usage for LLMs
+
+- To generate code for a project: read its `TRD.md` + `architecture.md`
+- To understand product: read `PRD.md`
+- To set up quickly: read `SKILLS.md`
+- To rank on GitHub: read `SEO.md`
+- Security: Dev mode SQL injection OFF (`developer/developer.json` sql_injection_protection=false), Prod ON (`developer.prod.json` = true)
+
+## Full Documentation
+
+See `llms-full.txt` for concatenated full content of all projects (concise LLM-readable).
+See `AI-Trending-Projects-2026 - LLM Documentary.md` for Obsidian vault friendly rich documentary with frontmatter.
+
+## Links
+
+- Local: `C:\Users\Pc\AI-Trending-Projects-2026\`
+- Obsidian Showcase: `C:\Users\Pc\Obsidian\Showcase\Projects\`
+- Obsidian Projects: `C:\Users\Pc\Obsidian\Projects\AI-Trending-Projects-2026\`
+- GitHub (pending push): `https://github.com/vortexpwn09-netizen/AI-Trending-Projects-2026` (run PUSH_TO_GITHUB.ps1 after gh auth login)
+
+## Token Hint
+
+This collection is designed to be `llms.txt` compliant, easily parseable by ChatGPT, Claude, Gemini, NotebookLM, Cursor, etc. For RAG ingestion, chunk by project.
