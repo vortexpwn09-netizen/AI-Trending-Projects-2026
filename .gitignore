@@ -1,10 +1,12 @@
-# Env & Secrets
+# Env & Secrets - HIDDEN (not pushed to GitHub)
 .env
+.env*
 .env.local
+.env.development
 .env.development.local
+.env.production
 *.key
 *.pem
-.env.production
 
 # Developer mode - keep .env.development for reference, ignore real secrets
 # But keep developer/.env.development as template (no real keys)
@@ -26,9 +28,10 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Keep developer configs (they are templates without real secrets)
-!developer/.env.development
-!developer/.env.production
+# Developer configs - .env files are HIDDEN (not pushed to GitHub) but kept locally
+# .env templates are hidden locally via hidden attribute, not tracked
+# !developer/.env.development  # HIDDEN now
+# !developer/.env.production   # HIDDEN now
 !developer/developer.json
 !developer/developer.prod.json
 
